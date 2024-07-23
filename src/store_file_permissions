@@ -16,7 +16,7 @@ function print_parents() {
 
   path_step="$1"
 
-  while [[ $path_step != '.' ]]; do
+  while [[ $path_step != '.' && $path_step != '/' ]]; do
     echo -ne "$path_step\0"
     path_step=$(dirname "$path_step")
   done
