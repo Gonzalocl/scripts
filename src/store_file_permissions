@@ -1,5 +1,17 @@
 #!/bin/bash
 
+function restore_permissions() {
+  while read -r l; do
+    file_mode=$(echo "$l" | cut -d ' ' -f 1)
+    file_owner=$(echo "$l" | cut -d ' ' -f 2)
+    file_group=$(echo "$l" | cut -d ' ' -f 3)
+    file_filename=$(echo "$l" | cut -d ' ' -f 4-)
+
+    echo chmod $file_mode $file_filename
+    echo chown $file_owner:$file_group $file_filename
+  done
+}
+
 function print_parents() {
 
   path_step="$1"
@@ -11,5 +23,10 @@ function print_parents() {
 }
 
 export -f print_parents
+
+if [[ $1 == -r ]]; then
+  restore_permissions
+  exit 0
+fi
 
 xargs -0 -I file bash -c 'print_parents "file"' | sort -z | uniq -z | xargs -0 stat --format='%#a %U %G %N'
