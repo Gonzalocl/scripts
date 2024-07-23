@@ -1,0 +1,15 @@
+#!/bin/bash
+
+function print_parents() {
+
+  path_step="$1"
+
+  while [[ $path_step != '.' ]]; do
+    echo -ne "$path_step\0"
+    path_step=$(dirname "$path_step")
+  done
+}
+
+export -f print_parents
+
+xargs -0 -I file bash -c 'print_parents "file"' | sort -z | uniq -z | xargs -0 stat --format='%#a %U %G %N'
