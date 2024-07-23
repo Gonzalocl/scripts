@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# TODO autodetect if there is only one folder, then dont make subdirectory output
+
+if rev <<< "$1" | cut -d . -f 2 | grep -q '^rat$'; then
+  7z x -so "$1" | 7z x -si -ttar -o"$(basename $1 | rev | cut -d . -f 3- | rev)"
+else
+  7z x -o* "$1"
+fi
