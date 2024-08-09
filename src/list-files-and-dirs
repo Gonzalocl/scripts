@@ -1,0 +1,8 @@
+#!/bin/bash
+
+while read -r -d $'\0' path_step; do
+  while [[ $path_step != '.' && $path_step != '/' ]]; do
+    echo -ne "$path_step\0"
+    path_step=$(dirname "$path_step")
+  done
+done
