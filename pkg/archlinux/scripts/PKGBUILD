@@ -1,0 +1,15 @@
+pkgname=scripts
+pkgver=1
+pkgrel=1
+pkgdesc="Scripts"
+arch=('any')
+url="https://github.com/Gonzalocl/scripts"
+license=('custom')
+depends=()
+optdepends=()
+source=("git+${url}")
+sha512sums=(SKIP)
+
+package() {
+    find "$srcdir/scripts/src" -type f -exec install -m 755 -Dt "$pkgdir/usr/bin/" "{}" \;
+}
