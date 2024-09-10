@@ -1,0 +1,25 @@
+#!/bin/bash
+
+if (($# != 1)); then
+  echo Exactly one argument needed.
+  exit
+fi
+
+input_file="$1"
+
+thumbnail_folder="$HOME/.cache/thumbnails"
+if [[ $XDG_CACHE_HOME ]]; then
+  thumbnail_folder="$XDG_CACHE_HOME/thumbnails"
+fi
+
+thumbnail_hash="$(echo -n "file://$(realpath -- "$input_file")" | md5sum | cut -d ' ' -f 1)"
+thumbnail_file="$thumbnail_folder/normal/$thumbnail_hash.png"
+
+if [[ ! -e $thumbnail_file ]]; then
+  mkdir -p "$thumbnail_folder/normal"
+  gdk-pixbuf-thumbnailer -s 128 "$input_file" "$thumbnail_file"
+fi
+
+echo "$thumbnail_file"
+
+# https://specifications.freedesktop.org/thumbnail-spec/latest/
