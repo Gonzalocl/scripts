@@ -1,0 +1,30 @@
+#!/bin/bash
+
+ksnip_options="-fs"
+if [[ $1 == "last-selection" ]]; then
+  ksnip_options="-ls"
+fi
+
+screenshot_file="$(ksnip $ksnip_options | tail -z -c +24 | head -z -c -1)"
+
+thumbnail_file="$(thumbnail "$screenshot_file")"
+
+action="$(notify-send \
+  --app-name ksnip \
+  --action default=Open \
+  --action edit=Edit \
+  --action copy=Copy \
+  --icon "$thumbnail_file" \
+  "Screenshot saved" "$screenshot_file")"
+
+case $action in
+default)
+  xdg-open "$screenshot_file"
+  ;;
+edit)
+  ksnip "$screenshot_file"
+  ;;
+copy)
+  xclip -i -selection clipboard -t image/png "$screenshot_file"
+  ;;
+esac
