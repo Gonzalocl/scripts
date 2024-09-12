@@ -1,0 +1,15 @@
+#!/bin/sh
+
+watch -n 0.5 "echo PRIMARY;
+  xclip -o -selection primary -target TARGETS;
+  echo ---
+  xclip -o -selection primary;
+  echo -e \\\n-\\\n-\\\nSECONDARY;
+  xclip -o -selection secondary -target TARGETS;
+  echo ---
+  xclip -o -selection secondary;
+  echo -e \\\n-\\\n-\\\nCLIPBOARD;
+  xclip -o -selection clipboard -target TARGETS;
+  echo ---
+  xclip -o -selection clipboard;
+  echo -e \\\n-\\\n-"
