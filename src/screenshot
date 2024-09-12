@@ -1,7 +1,9 @@
 #!/bin/bash
 
 ksnip_options="-fs"
-if [[ $1 == "last-selection" ]]; then
+if [[ $1 == "selection" ]]; then
+  ksnip_options="-r"
+elif [[ $1 == "last-selection" ]]; then
   ksnip_options="-ls"
 fi
 
