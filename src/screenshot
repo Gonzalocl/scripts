@@ -1,13 +1,15 @@
 #!/bin/bash
 
 ksnip_options="-fs"
+ksnip_output_skip=23
 if [[ $1 == "selection" ]]; then
   ksnip_options="-r"
+  ksnip_output_skip=28
 elif [[ $1 == "last-selection" ]]; then
   ksnip_options="-ls"
 fi
 
-screenshot_file="$(ksnip $ksnip_options | tail -z -c +24 | head -z -c -1)"
+screenshot_file="$(ksnip $ksnip_options | dd bs=1 skip=$ksnip_output_skip status=none)"
 
 thumbnail_file="$(thumbnail "$screenshot_file")"
 
