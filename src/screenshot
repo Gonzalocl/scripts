@@ -3,8 +3,7 @@
 ksnip_options="-fs"
 ksnip_output_skip=23
 if [[ $1 == "selection" ]]; then
-  ksnip_options="-r"
-  ksnip_output_skip=28
+  ksnip_options="-rs"
 elif [[ $1 == "last-selection" ]]; then
   ksnip_options="-ls"
 fi
