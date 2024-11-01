@@ -16,6 +16,10 @@ fi
 
 screenshot_file="$(echo $ksnip_output | dd bs=1 skip=$ksnip_output_skip status=none)"
 
+if [[ $1 == "selection" ]]; then
+  gpaste-client file "$screenshot_file" &
+fi
+
 thumbnail_file="$(thumbnail "$screenshot_file")"
 
 action="$(notify-send \
