@@ -28,6 +28,6 @@ edit)
   ksnip "$screenshot_file"
   ;;
 copy)
-  xclip -i -selection clipboard -t image/png "$screenshot_file"
+  gpaste-client file "$screenshot_file"
   ;;
 esac
