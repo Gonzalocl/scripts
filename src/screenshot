@@ -8,7 +8,13 @@ elif [[ $1 == "last-selection" ]]; then
   ksnip_options="-ls"
 fi
 
-screenshot_file="$(ksnip $ksnip_options | dd bs=1 skip=$ksnip_output_skip status=none)"
+ksnip_output="$(ksnip $ksnip_options)"
+
+if [[ ! $ksnip_output ]]; then
+  exit
+fi
+
+screenshot_file="$(echo $ksnip_output | dd bs=1 skip=$ksnip_output_skip status=none)"
 
 thumbnail_file="$(thumbnail "$screenshot_file")"
 
