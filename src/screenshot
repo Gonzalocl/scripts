@@ -14,7 +14,7 @@ if [[ ! $ksnip_output ]]; then
   exit
 fi
 
-screenshot_file="$(echo $ksnip_output | dd bs=1 skip=$ksnip_output_skip status=none)"
+screenshot_file="$(echo "$ksnip_output" | dd bs=1 skip=$ksnip_output_skip status=none)"
 
 if [[ $1 == "selection" ]]; then
   gpaste-client file "$screenshot_file" &
