@@ -17,7 +17,7 @@ thumbnail_file="$thumbnail_folder/normal/$thumbnail_hash.png"
 
 if [[ ! -e $thumbnail_file ]]; then
   mkdir -p "$thumbnail_folder/normal"
-  gdk-pixbuf-thumbnailer -s 128 "$input_file" "$thumbnail_file"
+  ffmpegthumbnailer -i "$input_file" -o "$thumbnail_file"
 fi
 
 echo "$thumbnail_file"
